@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\MyEvent;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Jobs\SendMail;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Broadcaster;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,4 +77,23 @@ Route::post("upload-image", function (Request $request) {
     // dd($file_path);
    
     return back();
+});
+
+# broadcast
+Route::get("broadcast-event", function () {
+    return view("broadcast-event");
+});
+
+Route::post("broadcast-event", function (Request $request) {
+
+    $message = $request->message;
+
+    event(new MyEvent($message));
+
+    return back();
+
+})->name("broadcast.event");
+
+Route::get("broadcast-listener", function () {
+    return view("broadcast-listener");
 });
