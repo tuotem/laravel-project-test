@@ -60,6 +60,7 @@
     @yield('content')
 
     <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+    @yield('script')
 </body>
 
 </html>

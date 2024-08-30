@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Jobs\SendMail;
 use App\Mail\PostPublished;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -96,4 +97,10 @@ Route::post("broadcast-event", function (Request $request) {
 
 Route::get("broadcast-listener", function () {
     return view("broadcast-listener");
+});
+
+Route::get("localization/{local?}", function ($locale = "en") {
+
+    App::setLocale($locale);
+    return view("localization", ["name" => "test"]);
 });
